@@ -1,0 +1,20 @@
+{
+  "name": "monorepo-example",
+  "version": "1.0.0",
+  "description": "Monorepo example",
+  "private": true,
+  "scripts": {
+    "lint": "lerna run lint --parallel",
+    "start:dev": "lerna run start:dev --parallel",
+    "test": "lerna run test"
+  },
+  "keywords": [],
+  "author": "Jaime Leonardo Suncin Cruz <jaime@suncin.me>",
+  "license": "GPL-3.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.14.0"
+  }
+}
