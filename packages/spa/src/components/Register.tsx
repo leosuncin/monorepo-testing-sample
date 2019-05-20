@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { register, IUserRegister } from '../services/api-client';
+import { AppContext } from '../context/app';
 
 interface RegisterValues {
   isLoading: boolean;
@@ -10,6 +11,7 @@ const defaultValues: RegisterValues = { isLoading: false };
 
 export const Register: React.FC = () => {
   const [values, setValues] = useState<RegisterValues>(defaultValues);
+  const { setUser } = useContext(AppContext);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,7 +30,7 @@ export const Register: React.FC = () => {
 
     register(data)
       .then(user => {
-        localStorage.setItem('userInfo', JSON.stringify(user));
+        setUser(_ => user);
         setValues({ isLoading: false });
       })
       .catch(err => setValues({ isLoading: false, errorMessage: err.message }));
@@ -46,7 +48,13 @@ export const Register: React.FC = () => {
       </fieldset>
       <fieldset>
         <label htmlFor="password">Password: </label>
-        <input type="password" name="password" id="password" minLength={8} required={true} />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          minLength={8}
+          required={true}
+        />
       </fieldset>
       {values.errorMessage && <p>{values.errorMessage}</p>}
       <button type="submit" disabled={values.isLoading}>

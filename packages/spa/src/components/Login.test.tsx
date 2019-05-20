@@ -42,7 +42,7 @@ describe('<Login /> component', () => {
   it.skip('Should show error message with invalid credentials', async () => {
     fetchMock.mockResponse(
       '{"statusCode":401,"error":"Unauthorized","message":"Wrong password for user with email: john@doe.me"}',
-      {status: 401},
+      { status: 401 },
     );
     const container = document.createElement('div');
     const { getByLabelText, getByTestId, getByText } = render(<Login />, {

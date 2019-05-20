@@ -1,12 +1,20 @@
 const baseUrl = process.env.BACKEND_URL || 'http://localhost:5000';
 
+export interface IUser {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IUserRegister {
   name: string;
   email: string;
   password: string;
 }
 
-export async function register(signUpData: IUserRegister) {
+export async function register(signUpData: IUserRegister): Promise<IUser> {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json; charset=utf-8');
   headers.append('Accept', 'application/json; charset=utf-8');
@@ -32,7 +40,7 @@ export interface IUserLogin {
   password: string;
 }
 
-export async function login(signInData: IUserLogin) {
+export async function login(signInData: IUserLogin): Promise<IUser> {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json; charset=utf-8');
   headers.append('Accept', 'application/json; charset=utf-8');

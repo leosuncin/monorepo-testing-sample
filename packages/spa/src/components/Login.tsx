@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { login, IUserLogin } from '../services/api-client';
+import { AppContext } from '../context/app';
 
 export const Login: React.FC = () => {
   const [state, setState] = useState<{ [key: string]: any }>({
     isLoading: false,
   });
+  const { setUser } = useContext(AppContext);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -23,7 +25,7 @@ export const Login: React.FC = () => {
 
     login(data)
       .then(user => {
-        localStorage.setItem('userInfo', JSON.stringify(user));
+        setUser(_ => user);
         setState({ isLoading: false });
       })
       .catch(err => setState({ isLoading: false, errorMessage: err.message }));
